@@ -130,18 +130,19 @@ def sigmoid(x):
 
 def loadData(X, Y):
     """
-    X: image set represented by a numpy array of shape (m_test,width,height,3[RGB])
-    Y: labels represented by a numpy array of shape (m_test,)
+    X: image set represented by a numpy array of shape (m,width,height,3[RGB])
+    Y: labels represented by a numpy array of shape (m,)
+    m: number of examples
     """
     # image set
     # flatten to 1d array and standardize input
     X = (X.reshape(X.shape[0], -1).T) / 255
-    # numpy array of shape (width * height * 3, m_train)
+    # numpy array of shape (width * height * 3, m)
 
     # labels
     # reshape
     Y = Y.reshape((1, Y.shape[0]))
-    # numpy array of shape (1, m_train)
+    # numpy array of shape (1, m)
 
     # sanity check
     assert(X.shape[1] == Y.shape[1])
@@ -150,6 +151,7 @@ def loadData(X, Y):
 
 
 if __name__ == "__main__":
+    # load training data set
     train_dataset = h5py.File("datasets/train_catvnoncat.h5", "r")
     # train set features
     train_set_x = np.array(train_dataset["train_set_x"][:])
@@ -172,7 +174,6 @@ if __name__ == "__main__":
     trainingResults = model.train()
 
     testResults = model.test(test_set_x, test_set_y)
-
     print("Training accuracy: %f, test accuracy: %f" %(trainingResults["training_accuracy"], testResults["test_accuracy"]))
 
     model.predict("datasets/test_image.jpg")
