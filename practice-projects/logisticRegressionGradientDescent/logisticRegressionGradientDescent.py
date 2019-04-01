@@ -21,9 +21,9 @@ class LogisticRegressionGD:
         # classes
         self.classes = classes
 
-        # initialize with zeros
+        # initialize
         # weights: a numpy array of size (width * height * 3, 1)
-        self.weights = np.zeros((imageWidth*imageHeight*3,1))
+        self.weights = np.random.randn(imageWidth*imageHeight*3,1) * 0.001
         # bias: a scalar
         self.bias = 0.
 
